@@ -8,17 +8,24 @@ package App;
  *
  * @author nithi
  */
-public class Main {
-    public static void main(String[] args) {
-        Passenger p1 = new Passenger();
-        p1.Name = "John Doe";
-        p1.SearchTrains();
-        p1.ReserveSeat();
-        p1.MakePayment();
+import java.io.IOException;
+import java.net.InetSocketAddress;
+import com.sun.net.httpserver.HttpServer;
 
-        TicketClerk clerk = new TicketClerk();
-        clerk.Name = "Jane Smith";
-        clerk.ReseivePayment();
-        clerk.ReserveTicket();
+public class Main {
+    public static void main(String[] args) throws IOException {
+        int port = Integer.parseInt(System.getenv("PORT"));
+
+        HttpServer server = HttpServer.create(new InetSocketAddress(port), 0);
+        server.createContext("/", (var exchange) -> {
+            try (exchange) {
+                String response = "Ticket Reservation System Running!";
+                exchange.sendResponseHeaders(200, response.length());
+                exchange.getResponseBody().write(response.getBytes());
+            }
+        });
+
+        server.start();
+        System.out.println("Server started on port " + port);
     }
 }
