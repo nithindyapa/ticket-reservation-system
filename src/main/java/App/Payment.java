@@ -10,4 +10,7 @@ package App;
  */
 public class Payment {
     public double Amount;
+    
+    
+    
 }

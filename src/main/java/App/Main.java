@@ -8,24 +8,17 @@ package App;
  *
  * @author nithi
  */
-import java.io.IOException;
-import java.net.InetSocketAddress;
-import com.sun.net.httpserver.HttpServer;
-
 public class Main {
-    public static void main(String[] args) throws IOException {
-        int port = Integer.parseInt(System.getenv("PORT"));
+    public static void main(String[] args) {
+        Passenger p1 = new Passenger();
+        p1.Name = "John Doe";
+        p1.SearchTrains();
+        p1.ReserveSeat();
+        p1.MakePayment();
 
-        HttpServer server = HttpServer.create(new InetSocketAddress(port), 0);
-        server.createContext("/", (var exchange) -> {
-            try (exchange) {
-                String response = "Ticket Reservation System Running!";
-                exchange.sendResponseHeaders(200, response.length());
-                exchange.getResponseBody().write(response.getBytes());
-            }
-        });
-
-        server.start();
-        System.out.println("Server started on port " + port);
+        TicketClerk clerk = new TicketClerk();
+        clerk.Name = "Jane Smith";
+        clerk.ReseivePayment();
+        clerk.ReserveTicket();
     }
 }
