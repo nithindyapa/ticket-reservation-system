@@ -10,7 +10,5 @@ package App;
  */
 public class Payment {
     public double Amount;
-    
-    
-    
+   System.out.println("");
 }
